@@ -21,16 +21,22 @@ class HomeScreen extends StatelessWidget {
             const Text(
               'MY BURGERS',
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 30),
-            )
+            ),
           ],
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.cart)),
           IconButton(
-              onPressed: () {
-                context.read<SignInBloc>().add(SignOutRequired());
-              },
-              icon: const Icon(CupertinoIcons.arrow_right_to_line)),
+            onPressed: () {
+              Navigator.pushNamed(context, '/cart');
+            },
+            icon: const Icon(CupertinoIcons.cart),
+          ),
+          IconButton(
+            onPressed: () {
+              context.read<SignInBloc>().add(SignOutRequired());
+            },
+            icon: const Icon(CupertinoIcons.arrow_right_to_line),
+          ),
         ],
       ),
       body: Padding(
@@ -40,10 +46,11 @@ class HomeScreen extends StatelessWidget {
             if (state is GetBurgerSuccess) {
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: 9 / 16),
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 9 / 16,
+                ),
                 itemCount: state.burgers.length,
                 itemBuilder: (context, int i) {
                   return Material(
@@ -58,8 +65,7 @@ class HomeScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute<void>(
-                            builder: (BuildContext context) =>
-                                DetailsScreen(state.burgers[i]),
+                            builder: (BuildContext context) => DetailsScreen(state.burgers[i]),
                           ),
                         );
                       },
@@ -73,30 +79,35 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                      color: state.burgers[i].isVeg
-                                          ? Colors.green
-                                          : Colors.red,
-                                      borderRadius: BorderRadius.circular(30)),
+                                    color: state.burgers[i].isVeg
+                                        ? Colors.green
+                                        : Colors.red,
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 4, horizontal: 8),
+                                      vertical: 4, horizontal: 8,
+                                    ),
                                     child: Text(
                                       state.burgers[i].isVeg ? "VEG" : "NON-VEG",
                                       style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 8),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 8,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 const SizedBox(width: 8),
                                 Container(
                                   decoration: BoxDecoration(
-                                      color: Colors.green.withOpacity(0.2),
-                                      borderRadius: BorderRadius.circular(30)),
+                                    color: Colors.green.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 4, horizontal: 8),
+                                      vertical: 4, horizontal: 8,
+                                    ),
                                     child: Text(
                                       state.burgers[i].spicy == 1
                                           ? "🌶️ BLAND"
@@ -114,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -124,7 +135,8 @@ class HomeScreen extends StatelessWidget {
                             child: Text(
                               state.burgers[i].name,
                               style: const TextStyle(
-                                  fontSize: 10, fontWeight: FontWeight.bold),
+                                fontSize: 10, fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           Padding(
@@ -149,33 +161,30 @@ class HomeScreen extends StatelessWidget {
                                     Text(
                                       "\$${state.burgers[i].price - (state.burgers[i].price * (state.burgers[i].discount) / 100)}",
                                       style: TextStyle(
-                                          fontSize: 16,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                          fontWeight: FontWeight.w700),
+                                        fontSize: 16,
+                                        color: Theme.of(context).colorScheme.primary,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
+                                    const SizedBox(width: 5),
                                     Text(
                                       "\$${state.burgers[i].price}.00",
                                       style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade500,
-                                          fontWeight: FontWeight.w700,
-                                          decoration:
-                                              TextDecoration.lineThrough),
+                                        fontSize: 12,
+                                        color: Colors.grey.shade500,
+                                        fontWeight: FontWeight.w700,
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
                                     ),
                                   ],
                                 ),
                                 IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                        CupertinoIcons.add_circled_solid))
+                                  onPressed: () {},
+                                  icon: const Icon(CupertinoIcons.add_circled_solid),
+                                ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -183,12 +192,13 @@ class HomeScreen extends StatelessWidget {
                 },
               );
             } else if (state is GetBurgerLoading) {
-              return const Center(
+              return
+                            const Center(
                 child: CircularProgressIndicator(),
               );
             } else {
               return const Center(
-                child: Text("An error has occured..."),
+                child: Text("An error has occurred..."),
               );
             }
           },
@@ -197,3 +207,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
