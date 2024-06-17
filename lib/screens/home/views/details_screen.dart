@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:burger_repository/burger_repository.dart';
 import 'package:my_burgers/component/macro.dart';
-import 'package:my_burgers/screens/home/views/cart_screen.dart';
 import 'package:my_burgers/screens/home/views/home_screen.dart'; 
 
 class DetailsScreen extends StatelessWidget {
